@@ -1,38 +1,61 @@
+public with sharing class AOC_2015_1 extends AOC_BaseUtils {
+  private static Integer startingFloor = 0;
 
+  public void main() {
+    this.proccessInputLines('AOC2015_Day1');
 
+    System.debug('---- Execution ------ ');
 
-public with sharing class AOC_2015_1 {
+    Results result = operation_Part1();
+    System.debug('My result PART 1 => ' + result.floor);
+    System.debug('My result PART 2 => ' + result.position);
 
+    // Integer result2 = operation_Part2();
+    // System.debug('My result PART 2 => ' + result2);
 
-   // ( will add 1 , ) will substract 1. At the end we want a number with the result
+    System.debug('---- END Execution ---');
+  }
 
-    private static final List<String> example = new List<String>{'(','(',')',')'};
-    private static Integer startingFloor = 0;
-
-    public void main() {
-        
-        System.debug('---- Execution ------ ');
-
-        Integer result = operation();
-        System.debug('My result => ' + result);
-
-        System.debug('---- END Execution ---'); 
+  private Results operation_Part1() {
+    Results result = new Results();
+    Integer floor = startingFloor;
+    Integer position = 1;
+    for (String bracket : this.inputLines[0].split('')) {
+      if (bracket == '(') {
+        floor += 1;
+      } else {
+        floor -= 1;
+      }
+      if (floor == -1) {
+        break;
+      }
+      position++;
     }
+    result.floor = floor;
+    result.position = position;
+    return result;
+  }
 
+  public class Results {
+    public Integer floor;
+    public Integer position;
+  }
 
-    private Integer operation(){
-        Integer floor = startingFloor;
-        // We start at 0 level.
-        // If ( we increment 1 level (+1)
-        // IF ) we go down 1 level. (-1)
-        for(String bracket : example) {
-        if(bracket == '(') {
-            floor +=1;
-        }else {
-            floor -=1;
-        }
-
-        }
-        return floor;
+  //
+  private Integer operation_Part2() {
+    Integer floor = startingFloor;
+    Integer position = 1;
+    for (String bracket : this.inputLines[0].split('')) {
+      if (bracket == '(') {
+        floor += 1;
+      } else {
+        floor -= 1;
+      }
+      if (floor == -1) {
+        break;
+      }
+      position++;
     }
+    return position;
+  }
 }
